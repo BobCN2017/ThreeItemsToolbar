@@ -30,7 +30,6 @@ public class ThreeItemsToolbar extends Toolbar {
     private View mView;
     private ImageView mCenterIcon;
     private TextView mTitle;
-    private EditText mSearch;
     private ImageButton mRightButton;
     private ImageButton mLeftButton;
 
@@ -57,7 +56,6 @@ public class ThreeItemsToolbar extends Toolbar {
 
         mCenterIcon = (ImageView) mView.findViewById(R.id.image_center);
         mTitle = (TextView) mView.findViewById(R.id.textView_title_bar);
-        mSearch = (EditText) mView.findViewById(R.id.editText_title_bar);
         mRightButton = (ImageButton) mView.findViewById(R.id.imageButton_title_bar);
         mLeftButton = (ImageButton) mView.findViewById(R.id.imageButton_left_title_bar);
 
@@ -102,10 +100,7 @@ public class ThreeItemsToolbar extends Toolbar {
             if (iconLeft != null) {
                 setLeftButtonIcon(iconLeft);
             }
-            boolean isShowSearchView = a.getBoolean(R.styleable.ThreePositionToolbar_isShowSearchView, false);
-            if (isShowSearchView) {
-                showSearchView(true);
-            }
+
             a.recycle();
         }
     }
@@ -117,14 +112,6 @@ public class ThreeItemsToolbar extends Toolbar {
         }
     }
 
-    private void showSearchView(boolean show) {
-        if (show) {
-            mTitle.setVisibility(GONE);
-            mSearch.setVisibility(VISIBLE);
-        } else {
-            mSearch.setVisibility(GONE);
-        }
-    }
 
     private void setRightButtonIcon(Drawable icon) {
         if (mRightButton != null) {
@@ -159,12 +146,6 @@ public class ThreeItemsToolbar extends Toolbar {
         }
     }
 
-    public String getSearchInfo() {
-        if (mSearch != null && mSearch.getVisibility() == VISIBLE) {
-            return mSearch.getText().toString();
-        }
-        return null;
-    }
 
     public void setLeftButtonIcon(int resId) {
         setLeftButtonIcon(ContextCompat.getDrawable(mContext, resId));

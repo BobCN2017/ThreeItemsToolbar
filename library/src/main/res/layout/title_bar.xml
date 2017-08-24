@@ -37,20 +37,6 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editText_title_bar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/login_edit_normal"
-        android:drawableLeft="@drawable/icon_search"
-        android:gravity="center"
-        android:hint="请输入要搜索的物品"
-        android:inputType="textPersonName"
-        android:visibility="gone" />
-
     <ImageButton
         android:id="@+id/imageButton_title_bar"
         android:layout_width="50dp"

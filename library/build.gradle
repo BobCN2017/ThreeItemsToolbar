@@ -34,5 +34,81 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-group = 'com.axiba.blockloading'
-version = '1.0'
+group = 'com.ff.pp.threeitemstoolbar'
+version = '1.0.1'
+
+def siteUrl = 'https://github.com/BobCN2017/ThreeItemsToolbar'
+def gitUrl = 'https://github.com/BobCN2017/ThreeItemsToolbar.git'
+
+//用户生成Maven的pom文件
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name 'ThreeItemsToolbar'
+                url siteUrl
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'BobCN2017'
+                        name 'pp'
+                        email 'zhangp365@gmail.com'
+                    }
+                }
+
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+
+def bintrayProperties = new Properties()
+bintrayProperties.load(new FileInputStream(file("bintray.properties")))
+
+bintray {
+    user = bintrayProperties['bintray_user']
+    key = bintrayProperties['bintray_key']
+    configurations = ['archives']
+    pkg {
+        userOrg = bintrayProperties['bintray_userOrg']
+        repo = bintrayProperties['bintray_repo']
+        name = 'com.ff.pp.threeitemstoolbar'
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ['Apache-2.0']
+        publish = true
+    }
+}
