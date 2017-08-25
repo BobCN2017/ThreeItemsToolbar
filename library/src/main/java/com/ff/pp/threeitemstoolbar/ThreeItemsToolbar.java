@@ -2,6 +2,7 @@ package com.ff.pp.threeitemstoolbar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -49,6 +51,7 @@ public class ThreeItemsToolbar extends Toolbar {
         initView(context);
         setUserDefineAttribute(attrs, defStyleAttr);
         setOtherAttributes(attrs);
+
     }
 
     private void initView(Context context) {
@@ -195,4 +198,5 @@ public class ThreeItemsToolbar extends Toolbar {
             }
         });
     }
+
 }

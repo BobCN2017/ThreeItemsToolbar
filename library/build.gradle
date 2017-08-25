@@ -37,7 +37,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 group = 'com.ff.pp.threeitemstoolbar'
-version = '1.0.1'
+version = '1.0.2'
 
 def siteUrl = 'https://github.com/BobCN2017/ThreeItemsToolbar'
 def gitUrl = 'https://github.com/BobCN2017/ThreeItemsToolbar.git'

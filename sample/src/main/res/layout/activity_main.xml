@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:background="#008899"
+        app:leftButtonIsClose="true"
         app:centerIcon="@mipmap/ic_launcher_round"
         app:centerTitle="标题" />
 
