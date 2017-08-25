@@ -6,16 +6,18 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.TintTypedArray;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 /**
  * Created by PP on 2017/3/21.
@@ -26,7 +28,6 @@ public class ThreeItemsToolbar extends Toolbar {
     private static final String TAG = "ThreePositionToolbar";
 
     private Context mContext;
-    private LayoutInflater mInflater;
     private View mView;
     private ImageView mCenterIcon;
     private TextView mTitle;
@@ -47,62 +48,63 @@ public class ThreeItemsToolbar extends Toolbar {
         mContext = context;
         initView(context);
         setUserDefineAttribute(attrs, defStyleAttr);
+        setOtherAttributes(attrs);
     }
 
     private void initView(Context context) {
         if (mView != null) return;
-        mInflater = LayoutInflater.from(context);
-        mView = mInflater.inflate(R.layout.title_bar, null);
-
-        mCenterIcon = (ImageView) mView.findViewById(R.id.image_center);
-        mTitle = (TextView) mView.findViewById(R.id.textView_title_bar);
-        mRightButton = (ImageButton) mView.findViewById(R.id.imageButton_title_bar);
-        mLeftButton = (ImageButton) mView.findViewById(R.id.imageButton_left_title_bar);
-
+        inflateAndFindView(context);
         buttonSetDefaultIcon();
         addView(mView);
-        setLeftButtonDefaultListener();
-    }
-
-    private void setLeftButtonDefaultListener() {
-        setOnLeftButtonClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mContext instanceof Activity){
-                   ((Activity) mContext).finish();
-                }
-            }
-        });
-    }
-
-    private void buttonSetDefaultIcon() {
-        setLeftButtonIcon(R.drawable.icon_back_32px);
-        setRightButtonIcon(R.drawable.actionbar_more_icon);
     }
 
     private void setUserDefineAttribute(@Nullable AttributeSet attrs, int defStyleAttr) {
         if (attrs != null) {
             final TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
-                    R.styleable.ThreePositionToolbar, defStyleAttr, 0);
-            Drawable centerIcon = a.getDrawable(R.styleable.ThreePositionToolbar_centerIcon);
+                    R.styleable.ThreeItemsToolbar, defStyleAttr, 0);
+            Drawable centerIcon = a.getDrawable(R.styleable.ThreeItemsToolbar_centerIcon);
             if (centerIcon != null) {
                 setCenterIcon(centerIcon);
             }
-            String title=a.getString(R.styleable.ThreePositionToolbar_centerTitle);
-            if (!TextUtils.isEmpty(title)){
+            String title = a.getString(R.styleable.ThreeItemsToolbar_centerTitle);
+            if (!TextUtils.isEmpty(title)) {
                 setTitle(title);
             }
-            Drawable icon = a.getDrawable(R.styleable.ThreePositionToolbar_rightButtonIcon);
-            if (icon != null) {
-                setRightButtonIcon(icon);
+            Drawable rightIcon = a.getDrawable(R.styleable.ThreeItemsToolbar_rightButtonIcon);
+            if (rightIcon != null) {
+                setRightButtonIcon(rightIcon);
             }
-            Drawable iconLeft = a.getDrawable(R.styleable.ThreePositionToolbar_leftButtonIcon);
-            if (iconLeft != null) {
-                setLeftButtonIcon(iconLeft);
+            Drawable LeftIcon = a.getDrawable(R.styleable.ThreeItemsToolbar_leftButtonIcon);
+            if (LeftIcon != null) {
+                setLeftButtonIcon(LeftIcon);
             }
+            boolean leftButtonIsClose = a.getBoolean(R.styleable.ThreeItemsToolbar_leftButtonIsClose, false);
+            if (leftButtonIsClose)
+                setLeftButtonClose();
 
             a.recycle();
         }
+    }
+
+    private void setOtherAttributes(AttributeSet attrs) {
+        if (userHasNotSetBackground(attrs)) {
+            setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary));
+        }
+    }
+
+    private void inflateAndFindView(Context context) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        mView = inflater.inflate(R.layout.title_bar, null);
+
+        mCenterIcon = (ImageView) mView.findViewById(R.id.image_center);
+        mTitle = (TextView) mView.findViewById(R.id.textView_title_bar);
+        mRightButton = (ImageButton) mView.findViewById(R.id.imageButton_title_bar);
+        mLeftButton = (ImageButton) mView.findViewById(R.id.imageButton_left_title_bar);
+    }
+
+    private void buttonSetDefaultIcon() {
+        setLeftButtonIcon(R.drawable.icon_back_32px);
+        setRightButtonIcon(R.drawable.actionbar_more_icon);
     }
 
     private void setLeftButtonIcon(Drawable iconLeft) {
@@ -112,7 +114,6 @@ public class ThreeItemsToolbar extends Toolbar {
         }
     }
 
-
     private void setRightButtonIcon(Drawable icon) {
         if (mRightButton != null) {
             mRightButton.setVisibility(INVISIBLE);
@@ -120,12 +121,31 @@ public class ThreeItemsToolbar extends Toolbar {
         }
     }
 
-
     private void setCenterIcon(Drawable drawable) {
         if (mCenterIcon != null) {
             mCenterIcon.setImageDrawable(drawable);
             mCenterIcon.setVisibility(VISIBLE);
         }
+    }
+
+    private void setLeftButtonClose() {
+        setOnLeftButtonClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mContext instanceof Activity) {
+                    ((Activity) mContext).finish();
+                }
+            }
+        });
+    }
+
+    private boolean userHasNotSetBackground(@Nullable AttributeSet attrs) {
+        for (int i = 0,count=attrs.getAttributeCount(); i < count; i++) {
+            if (attrs.getAttributeName(i).contains("background")) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void setCenterIcon(int imageId) {
@@ -146,9 +166,13 @@ public class ThreeItemsToolbar extends Toolbar {
         }
     }
 
-
     public void setLeftButtonIcon(int resId) {
         setLeftButtonIcon(ContextCompat.getDrawable(mContext, resId));
+    }
+
+    public void setOnLeftButtonClickListener(OnClickListener listener) {
+        mLeftButton.setVisibility(VISIBLE);
+        mLeftButton.setOnClickListener(listener);
     }
 
     public void setRightButtonIcon(int resId) {
@@ -160,8 +184,15 @@ public class ThreeItemsToolbar extends Toolbar {
         mRightButton.setOnClickListener(listener);
     }
 
-    public void setOnLeftButtonClickListener(OnClickListener listener) {
-        mLeftButton.setVisibility(VISIBLE);
-        mLeftButton.setOnClickListener(listener);
+    public void setRightSideMenu(final int resId, final PopupMenu.OnMenuItemClickListener listener){
+        setOnRightButtonClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View rightButton) {
+                PopupMenu popup = new PopupMenu(mContext, rightButton);
+                popup.inflate(resId);
+                popup.setOnMenuItemClickListener(listener);
+                popup.show();
+            }
+        });
     }
 }
