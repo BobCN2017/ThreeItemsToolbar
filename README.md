@@ -2,7 +2,7 @@
  左中右三个位置的toolbar，左边默认回退，中间可以添加App图标和名字，右边是Button选项。
 
 ## 显示效果：
-![screen picture](https://github.com/BobCN2017/ThreeItemsToolbar/tree/master/sample/src/main/res/raw/Screenshot.png)
+![image](https://github.com/BobCN2017/ThreeItemsToolbar/blob/master/sample/src/main/res/raw/Screenshot_.png)
 
 ### 以上toolbar中的图标、文字均可自主设定。同时保留Google Toolbar的功能，如在RecyclerView滚动时toolbar跟随向上消失，向下复现。
 
