@@ -1,5 +1,5 @@
 # ThreeItemsToolbar
- 左中右三个位置的toolbar，左边默认回退，中间可以添加App图标和名字，右边是Button选项。
+ 左中右三个位置的toolbar，左边可设置回退或其他，中间可以添加App图标和名字，右边是Button或者菜单。
 
 ## 显示效果：
 ![image](https://github.com/BobCN2017/ThreeItemsToolbar/blob/master/sample/src/main/res/raw/Screenshot_.png)
@@ -8,22 +8,11 @@
 
 ## 使用方式：  
 
-### 1、在项目的build.gradle中添加：  
+### 1、在Model的build.gradle中添加：  
 
-    allprojects {
-    repositories {
-        jcenter()
-         maven {
-             url  "http://dl.bintray.com/bobcn2017/maven"
-         }
-       }
-    }
-
-### 2、在Model的build.gradle中添加：  
-
-    compile 'com.ff.pp.threeitemstoolbar:library:1.0.1'
+    compile 'com.ff.pp.threeitemstoolbar:library:1.0.2'
 	
-### 3、在XML文件如下定义和使用：
+### 2、在XML文件如下定义和使用：
 
 	    <com.ff.pp.threeitemstoolbar.ThreeItemsToolbar
         android:id="@+id/threeItemsToolbar"
@@ -37,7 +26,7 @@
 		
 #### 其中属性leftButtonIsClose提供关闭当前Activity功能，可使用在App的非主界面Activity中，方便地提供回退功能。
 
-### 4、同时也可以在代码中设置：
+### 3、同时也可以在代码中设置：
 
 #### 代码中除了正常设置左中右相应的图标、文字，还可以将右侧图标设置为菜单，传入相应的菜单Id及listener即可。
 	public void setRightSideMenu( int resId, PopupMenu.OnMenuItemClickListener listener)
