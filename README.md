@@ -8,7 +8,7 @@
 
 ## 使用方式：  
 
-### 1、在Model的build.gradle中添加：  
+### 1、在Module的build.gradle中添加：  
 
     compile 'com.ff.pp.threeitemstoolbar:library:1.0.2'
 	
