@@ -10,7 +10,7 @@
 
 ### 1、在Module的build.gradle中添加：  
 
-    compile 'com.ff.pp.threeitemstoolbar:library:1.0.2'
+    compile 'com.ff.pp.threeitemstoolbar:library:1.0.4'
 	
 ### 2、在XML文件如下定义和使用：
 
