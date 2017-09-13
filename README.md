@@ -30,3 +30,6 @@
 
 #### 代码中除了正常设置左中右相应的图标、文字，还可以将右侧图标设置为菜单，传入相应的菜单Id及listener即可。
 	public void setRightSideMenu( int resId, PopupMenu.OnMenuItemClickListener listener)
+	
+
+

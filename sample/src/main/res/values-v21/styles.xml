@@ -1,0 +1,6 @@
+<resources>
+
+    <style name="ActivityTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>

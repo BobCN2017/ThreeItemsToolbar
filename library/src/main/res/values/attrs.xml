@@ -6,5 +6,6 @@
         <attr name="leftButtonIsClose" format="boolean"/>
         <attr name="centerIcon" format="reference"/>
         <attr name="centerTitle" format="string"/>
+        <attr name="centerTextSize" format="dimension"/>
     </declare-styleable>
 </resources>

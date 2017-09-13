@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -51,7 +52,7 @@ public class ThreeItemsToolbar extends Toolbar {
         initView(context);
         setUserDefineAttribute(attrs, defStyleAttr);
         setOtherAttributes(attrs);
-
+        showAttrs(attrs);
     }
 
     private void initView(Context context) {
@@ -84,6 +85,10 @@ public class ThreeItemsToolbar extends Toolbar {
             boolean leftButtonIsClose = a.getBoolean(R.styleable.ThreeItemsToolbar_leftButtonIsClose, false);
             if (leftButtonIsClose)
                 setLeftButtonClose();
+
+            int textSize = a.getDimensionPixelSize(R.styleable.ThreeItemsToolbar_centerTextSize, 0);
+            if (textSize != 0)
+                mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 
             a.recycle();
         }
@@ -143,7 +148,7 @@ public class ThreeItemsToolbar extends Toolbar {
     }
 
     private boolean userHasNotSetBackground(@Nullable AttributeSet attrs) {
-        for (int i = 0,count=attrs.getAttributeCount(); i < count; i++) {
+        for (int i = 0, count = attrs.getAttributeCount(); i < count; i++) {
             if (attrs.getAttributeName(i).contains("background")) {
                 return false;
             }
@@ -187,7 +192,7 @@ public class ThreeItemsToolbar extends Toolbar {
         mRightButton.setOnClickListener(listener);
     }
 
-    public void setRightSideMenu(final int resId, final PopupMenu.OnMenuItemClickListener listener){
+    public void setRightSideMenu(final int resId, final PopupMenu.OnMenuItemClickListener listener) {
         setOnRightButtonClickListener(new OnClickListener() {
             @Override
             public void onClick(View rightButton) {
@@ -199,4 +204,11 @@ public class ThreeItemsToolbar extends Toolbar {
         });
     }
 
+    private void showAttrs(AttributeSet attrs) {
+        for (int i = 0, n = attrs.getAttributeCount(); i < n; i++) {
+            String attributeValue = attrs.getAttributeValue(i);
+            String attributeName = attrs.getAttributeName(i);
+            Log.e(TAG, "showAttrs attributeName: " + attributeName + "; attributeValue: " + attributeValue);
+        }
+    }
 }
