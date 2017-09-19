@@ -8,16 +8,16 @@
 
 ## 使用方式：  
 
-### 1、在Model的build.gradle中添加：  
+### 1、在Module的build.gradle中添加：  
 
-    compile 'com.ff.pp.threeitemstoolbar:library:1.0.2'
+    compile 'com.ff.pp.threeitemstoolbar:library:1.0.4'
 	
 ### 2、在XML文件如下定义和使用：
 
 	    <com.ff.pp.threeitemstoolbar.ThreeItemsToolbar
         android:id="@+id/threeItemsToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:layout_gravity="top"
         android:background="#008899"
         app:leftButtonIsClose="true"
@@ -30,6 +30,10 @@
 
 #### 代码中除了正常设置左中右相应的图标、文字，还可以将右侧图标设置为菜单，传入相应的菜单Id及listener即可。
 	public void setRightSideMenu( int resId, PopupMenu.OnMenuItemClickListener listener)
+	
+### 4、注意需要在styles中设置：
+     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
 	
 
 
