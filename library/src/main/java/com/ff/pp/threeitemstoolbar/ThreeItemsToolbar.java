@@ -3,12 +3,13 @@ package com.ff.pp.threeitemstoolbar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.TintTypedArray;
+
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -64,7 +65,7 @@ public class ThreeItemsToolbar extends Toolbar {
 
     private void setUserDefineAttribute(@Nullable AttributeSet attrs, int defStyleAttr) {
         if (attrs != null) {
-            final TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
+            final TypedArray a = mContext.obtainStyledAttributes(attrs,
                     R.styleable.ThreeItemsToolbar, defStyleAttr, 0);
             Drawable centerIcon = a.getDrawable(R.styleable.ThreeItemsToolbar_centerIcon);
             if (centerIcon != null) {
