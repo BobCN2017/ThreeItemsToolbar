@@ -53,7 +53,7 @@ public class ThreeItemsToolbar extends Toolbar {
         initView(context);
         setUserDefineAttribute(attrs, defStyleAttr);
         setOtherAttributes(attrs);
-        showAttrs(attrs);
+//        showAttrs(attrs);
     }
 
     private void initView(Context context) {
